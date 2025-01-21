@@ -1,0 +1,15 @@
+{
+    "name": "fan724/blog_opp",
+    "autoload": {
+        "psr-4": {
+            "Fan724\\BlogOpp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Фаниль",
+            "email": "fanil724@gmail.com"
+        }
+    ],
+    "require": {}
+}
