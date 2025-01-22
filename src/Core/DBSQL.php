@@ -5,7 +5,7 @@ namespace Fan724\BlogOpp\Core;
 
 class   DBSQL
 {
-    //private PDO $pdo = null;
+    private ?\PDO $pdo = null;
     private string $sqlquery = "";
     private string $tableName = "";
     private array $Parametr = [];

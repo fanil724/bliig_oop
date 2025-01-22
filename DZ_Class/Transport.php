@@ -2,7 +2,7 @@
 
 
 
-class Transport
+abstract class Transport
 {
     protected string $marka;
     protected string $model;
@@ -13,8 +13,8 @@ class Transport
         $this->marka = $Marka;
     }
 
-    protected function move(): void {}
-    protected function dispaly(): void {}
+    abstract protected function move(): void;
+    abstract protected function dispaly(): void;
     public function __get($name)
     {
         return $this->$name;
