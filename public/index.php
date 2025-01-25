@@ -1,6 +1,6 @@
 <?php
 
-include "vendor/autoload.php";
+include __DIR__ . "/../vendor/autoload.php";
 
 use Fan724\BlogOpp\Core\Db;
 use Fan724\BlogOpp\Model\Post;
@@ -9,15 +9,30 @@ use Fan724\BlogOpp\Core\DBSQL;
 use Fan724\BlogOpp\Model\Role;
 use Fan724\BlogOpp\Model\Comment;
 use Fan724\BlogOpp\Model\Category;
+use Fan724\BlogOpp\controllers\PostsController;
+
+//var_dump($_GET);
+
+$controllerName = $_GET['c'] ?? 'posts';
+$actionName = $_GET['a'] ?? 'index';
+$controllerClass = "Fan724\\BlogOpp\\controllers\\" . ucfirst($controllerName) . "Controller";
+//var_dump($controllerName);
+
+if (class_exists($controllerClass)) {
+    $controller = new $controllerClass();
+    $controller->runAction($actionName);
+}
 
 
-$category = new Category("Бизнес");
+/*$category = Category::getOne(3);
+print_r($category);*/
+/*$category = new Category("Бизнес");
 $category = $category->insert();
 print_r($category);
 $post = new Post("курс", "доллра опять превысел 100 рублей", $category->id);
 print_r($post);
 $post->insert();
-
+*/
 
 /*$dbSql = new DBSQL("users.db");
 echo $dbSql->select("users")->where("id", 5)->where("name", "petr")->get();
