@@ -5,14 +5,19 @@ namespace Fan724\BlogOpp\Model;
 
 class Role extends Model
 {
-    // public ?int $id = null;
-    public ?string $title;
+    protected ?int $id = null;
+    protected ?string $title;
+
+    protected array $props = [
+        'id' => false,
+        'title' => false
+    ];
 
     public function __construct(string $title = null)
     {
         $this->title = $title;
     }
-    protected function getTableName(): string
+    protected static function getTableName(): string
     {
         return 'role';
     }

@@ -5,10 +5,17 @@ namespace Fan724\BlogOpp\Model;
 
 class Comment extends Model
 {
-    //public ?int $id = null;
-    public ?int $user_id;
-    public ?int $post_id;
-    public ?string $text;
+    protected ?int $id = null;
+    protected ?int $user_id;
+    protected ?int $post_id;
+    protected ?string $text;
+
+    protected  array $props = [
+        'id' => false,
+        'user_id' => false,
+        'post_id' => false,
+        'text' => false
+    ];
 
     public function __construct(int $user_id = null, int $post_id = null, string $text = null)
     {
@@ -17,7 +24,7 @@ class Comment extends Model
         $this->text = $text;
     }
 
-    protected function getTableName(): string
+    protected static function getTableName(): string
     {
         return 'comments';
     }

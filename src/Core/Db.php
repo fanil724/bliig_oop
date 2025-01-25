@@ -26,7 +26,7 @@ class Db
     private function getConnection(): PDO
     {
         if (is_null($this->connection)) {
-            $this->connection = new PDO("{$this->config['driver']}:{$this->config['database']}");
+            $this->connection = new PDO("{$this->config['driver']}:../{$this->config['database']}");
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         }
         return $this->connection;

@@ -4,9 +4,15 @@ namespace Fan724\BlogOpp\Model;
 
 class User extends Model
 {
-    //public ?int $id = null;
-    public ?string $name;
-    public ?int $role_id;
+    protected ?int $id = null;
+    protected ?string $name;
+    protected ?int $role_id;
+
+    protected array $props = [
+        'id' => false,
+        'name' => false,
+        'role_id' => false,
+    ];
 
     public function __construct(string $name = null, int $role_id = null)
     {
@@ -14,7 +20,7 @@ class User extends Model
         $this->role_id = $role_id;
     }
 
-    protected function getTableName(): string
+    protected  static function getTableName(): string
     {
         return 'users';
     }

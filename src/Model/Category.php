@@ -6,15 +6,19 @@ namespace Fan724\BlogOpp\Model;
 
 class Category extends Model
 {
-    //public ?int $id = null;
-    public ?string $category;
+    protected ?int $id = null;
+    protected ?string $category;
+    protected  array $props = [
+        'id' => false,
+        'category' => false
+    ];
 
     public function __construct(string $category = null)
     {
         $this->category = $category;
     }
 
-    protected function getTableName(): string
+    protected static function getTableName(): string
     {
         return 'categories';
     }
