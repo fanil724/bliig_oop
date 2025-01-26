@@ -4,7 +4,7 @@ namespace Fan724\BlogOpp\controllers;
 
 use Fan724\BlogOpp\Model\Post;
 
-class PostsController
+class ServicesController
 {
     public function runAction($action)
     {
@@ -17,26 +17,12 @@ class PostsController
     }
     public function actionIndex()
     {
-        $posts = Post::getAll();
-
-        echo $this->renderTemplate('index', [
-            'posts' => $posts
-        ]);
+        echo $this->renderTemplate('services');
     }
 
-    public function actionPost()
-    {
-        $id = (int)$_GET['id'];
-        $post = Post::getOne($id);
-        echo $this->renderTemplate('blog_post', [
-            'post' => $post
-        ]);
-    }
-
-    public function renderTemplate($template, $params = []): string
+    public function renderTemplate($template): string
     {
         ob_clean();
-        extract($params);
         include '../src/views/' . $template . ".php";
         return ob_get_clean();
     }

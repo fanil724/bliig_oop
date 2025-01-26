@@ -4,6 +4,7 @@ namespace Fan724\BlogOpp\Model;
 
 use Fan724\BlogOpp\Core\Db;
 use Fan724\BlogOpp\Interfaces\IModel;
+use Fan724\BlogOpp\Model\Model;
 
 abstract class DbModel implements IModel
 {
@@ -11,11 +12,11 @@ abstract class DbModel implements IModel
     abstract public function __get(string $name): mixed;
     abstract public function __set(string $name, mixed $value): void;
 
-    public static function getOne(int $id)
+    public static function getOne(int $id): Model
     {
         $table = static::getTableName();
-        $sql = "SELECT * FROM $table WHERE id = $id" . PHP_EOL;
-        return Db::getInstance()->queryOne($sql);
+        $sql = "SELECT * FROM $table WHERE id = :id" . PHP_EOL;
+        return Db::getInstance()->queryOneObject($sql, ['id' => $id], static::class);
     }
 
 
@@ -54,17 +55,24 @@ abstract class DbModel implements IModel
     public function update(): static
     {
         $table = $this->getTableName();
-        $arrClass = (array)$this;
-        unset($arrClass['id']);
-        var_dump((array)$this);
+        $str = [];
+        $params = [];
+        $arrClass = (array)$this->props;
+        $arrKeys = array_keys(array_filter($arrClass, function ($val) {
+            return $val == true;
+        }));
+        foreach ($arrKeys as $ar) {
+            $str[] = $ar . "=" . ":" . $ar;
+            $params[$ar] = $this->$ar;
+        }
+        print_r($params);
 
-        $values = implode(',', array_keys($arrClass));
-        $val = implode(',', $this->convert(array_keys($arrClass)));
 
-        $sql = "INSERT INTO $table ($values) VALUES ($val)";
+
+        $sql = "UPDATE $table SET " . implode(',', $str) . " WHERE id = :id" . PHP_EOL;
         echo $sql;
-        Db::getInstance()->execute($sql, $this->getValues(array_keys($arrClass)));
-        $this->id = Db::getInstance()->lastInsertId();
+        Db::getInstance()->execute($sql, $params);
+
         return $this;
     }
 
