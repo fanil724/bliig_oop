@@ -36,7 +36,7 @@ class Db
 
     private function query(string $sql, array $params = []): PDOStatement
     {
-        echo "query" . PHP_EOL;
+        //echo "query" . PHP_EOL;
         $pdoStatement = $this->getConnection()->prepare($sql);
         $pdoStatement->execute($params);
         return $pdoStatement;
@@ -49,7 +49,7 @@ class Db
 
     public function execute(string $sql, array $params = []): PDOStatement
     {
-        echo "execute" . PHP_EOL;
+        //echo "execute" . PHP_EOL;
         return $this->query($sql, $params);
     }
 

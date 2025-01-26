@@ -13,11 +13,11 @@ use Fan724\BlogOpp\controllers\PostsController;
 
 
 
-$post = Post::getOne(96);
-$post->title = "тустовый";
-$post->text = "проверка";
+$post = Post::getOne(97);
+$post->title = "PDO";
+$post->text = "Представляет подготовленный запрос к базе данных, а после выполнения запроса соответствующий результирующий набор.";
 
-$post->id_category = 4;
+$post->id_category = 3;
 $post->save();
 die();
 $controllerName = $_GET['c'] ?? 'posts';

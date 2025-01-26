@@ -65,13 +65,9 @@ abstract class DbModel implements IModel
             $str[] = $ar . "=" . ":" . $ar;
             $params[$ar] = $this->$ar;
         }
-        print_r($params);
-
-
-
-        $sql = "UPDATE $table SET " . implode(',', $str) . " WHERE id = :id" . PHP_EOL;
+        $sql = "UPDATE $table SET " . implode(',', $str) . " WHERE id = $this->id" . PHP_EOL;
         echo $sql;
-        Db::getInstance()->execute($sql, $params);
+        $result = Db::getInstance()->execute($sql, $params);
 
         return $this;
     }
