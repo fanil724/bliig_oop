@@ -11,12 +11,19 @@ use Fan724\BlogOpp\Model\Comment;
 use Fan724\BlogOpp\Model\Category;
 use Fan724\BlogOpp\controllers\PostsController;
 
-//var_dump($_GET);
 
+
+$post = Post::getOne(96);
+$post->title = "тустовый";
+$post->text = "проверка";
+
+$post->id_category = 4;
+$post->save();
+die();
 $controllerName = $_GET['c'] ?? 'posts';
 $actionName = $_GET['a'] ?? 'index';
 $controllerClass = "Fan724\\BlogOpp\\controllers\\" . ucfirst($controllerName) . "Controller";
-//var_dump($controllerName);
+
 
 if (class_exists($controllerClass)) {
     $controller = new $controllerClass();
@@ -32,29 +39,8 @@ print_r($category);
 $post = new Post("курс", "доллра опять превысел 100 рублей", $category->id);
 print_r($post);
 $post->insert();
-*/
-
-/*$dbSql = new DBSQL("users.db");
-echo $dbSql->select("users")->where("id", 5)->where("name", "petr")->get();
-*/
-
-/*$post = new Post();
-print_r($post->getAll());
-$cat = new Category();
-print_r($cat->getAll());
-//Db->table('users')->where('name', '2')->get();
-$user = new User();
-$role = new Role();
-$comment = new Comment();
-print_r($user->getOne(5));
-
-
-print_r($role->getAll());
-print_r($comment->getAll());
-
-
-//AR CRUD над одной записью в бд через ооп
-
+*///AR CRUD над одной записью в бд через ооп
+/*
 // C create
 $post = new Post("post");
 $post->insert();
