@@ -48,13 +48,13 @@
 
             <div class="post_section"><span class="bottom"></span>
 
-                <h2><?= $post['title'] ?></h2>
+                <h2><?= $post->title ?></h2>
 
                 <strong>Date:</strong> 25 August 2048 | <strong>Author:</strong> Michael
 
                 <img src="images/templatemo_image_01.jpg" alt="image 1" />
 
-                <p><?= $post['text'] ?></p>
+                <p><?= $post->text ?></p>
                 <div class="cleaner"></div>
                 <div class="category">Category: <a href="#">Freebies</a>, <a href="#">Templates</a></div>
                 <div class="cleaner"></div>

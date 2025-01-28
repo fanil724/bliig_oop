@@ -3,41 +3,66 @@
 namespace Fan724\BlogOpp\controllers;
 
 use Fan724\BlogOpp\Model\Post;
+use Fan724\BlogOpp\Model\User;
 
-class PostsController
+
+class PostsController extends Controller
 {
-    public function runAction($action)
-    {
-        $method = "action" . ucfirst($action);
-        if (method_exists($this, $method)) {
-            $this->$method();
-        } else {
-            echo "404 нет такого Action";
-        }
-    }
+
     public function actionIndex()
     {
         $posts = Post::getAll();
-
-        echo $this->renderTemplate('index', [
-            'posts' => $posts
+        $message = $_SESSION['message'] ?? null;
+        $count = $_COOKIE['count'] ?? 0;
+        $_SESSION['message'] = null;
+        echo $this->render('posts/index', [
+            'posts' => $posts,
+            'message' => $message,
+            'count' => $count
         ]);
     }
 
-    public function actionPost()
+    public function actionSave()
+    {
+        $title = $_POST['title'];
+        $text = $_POST['text'];
+        $_SESSION['message'] = null;
+
+
+        if (empty($title)) {
+            $_SESSION['message'] = "title пустой";
+            header('Location: \post');
+            exit;
+        }
+
+        $post = new Post($title, $text);
+        $post->save();
+        $_SESSION['message'] = "пост добавлен";
+        header('Location: /posts');
+    }
+
+    public function actionDelete()
+    {
+        if (!User::isAdmin()) {
+            $_SESSION['message'] = "Вы не админ!";
+            header('Location: /posts');
+            exit();
+        }
+
+        $id = $_GET['id'];
+        $post = Post::getOne($id);
+        $post->delete();
+        $_SESSION['message'] = "Пост удален";
+        header('Location: /posts');
+    }
+
+    public function actionShow()
     {
         $id = (int)$_GET['id'];
         $post = Post::getOne($id);
-        echo $this->renderTemplate('blog_post', [
+
+        echo $this->render('posts/post', [
             'post' => $post
         ]);
-    }
-
-    public function renderTemplate($template, $params = []): string
-    {
-        ob_clean();
-        extract($params);
-        include '../src/views/' . $template . ".php";
-        return ob_get_clean();
     }
 }

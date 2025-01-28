@@ -20,6 +20,16 @@ class User extends Model
         $this->role_id = $role_id;
     }
 
+    public static function getName()
+    {
+        return $_SESSION['login'] ?? false;
+    }
+
+    public static function isAdmin(): bool
+    {
+        return $_SESSION['login'] === 'admin';
+    }
+
     protected  static function getTableName(): string
     {
         return 'users';

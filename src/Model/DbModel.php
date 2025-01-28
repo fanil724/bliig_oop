@@ -72,6 +72,13 @@ abstract class DbModel implements IModel
         return $this;
     }
 
+    public function delete()
+    {
+        $tableName = static::getTableName();
+        $sql = "DELETE FROM $tableName WHERE id = :id";
+        return Db::getInstance()->execute($sql, ['id' => $this->id]);
+    }
+
     protected function convert(array $arr): array
     {
         $arrays = [];
